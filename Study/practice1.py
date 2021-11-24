@@ -1,6 +1,16 @@
 import numpy as np
+x = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
 
-x = np.array([[1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0], 
-               [1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.5, 1.4, 1.3]])
-x = x.T
+
+y = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+
+# train과 test를 8:2으로 분류하시오.
+x_train = x[0:8]
+x_test = x[8:]
+y_train = y[0:8]
+y_test = y[8:]
+
+print(x_train)
 print(x)
+
+print(x_train.ndim)
