@@ -6,7 +6,7 @@ from sklearn.datasets import load_boston
 
 
 datasets = load_boston()
-x = datasets.data
+x = datasets.data #
 y = datasets.target
 
 '''
