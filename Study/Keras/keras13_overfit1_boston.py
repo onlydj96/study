@@ -4,7 +4,7 @@ from tensorflow.keras.layers import Dense
 from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 from sklearn.datasets import load_boston
-import time
+import time  # 일정 라인이 가동되는 시간을 측정하는 함수
 
 datasets = load_boston()
 x = datasets.data 
@@ -44,6 +44,10 @@ print("===================================================================")
 print(hist.history['loss'])
 print("===================================================================")
 print(hist.history['val_loss'])
+
+'''
+history는 변수값의 출력내용을 반환한다.
+'''
 
 plt.figure(figsize=(9,5))
 plt.plot(hist.history['loss'], marker='.', c='red', label='loss')

@@ -9,6 +9,11 @@ x_test = np.array([8, 9, 10])
 y_train = np.array([1, 2, 3, 4, 5, 6, 7])
 y_test = np.array([8, 9, 10])
 
+'''
+test와 train을 나누는 이유는 train에서 훈련하여 만든 최적의 loss값으로 test를 진행하기 위함이다. 
+이렇게 분할하여 모델링을 하지 않으면 over training되어 머신은 오류값을 반환한다.
+'''
+
 #2. 모델 구현
 model = Sequential()
 model.add(Dense(100, input_dim = 1))

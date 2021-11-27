@@ -1,7 +1,7 @@
 import numpy as np
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt  # matplotlib는 그래프를 시각화하는 함수
 from sklearn.model_selection import train_test_split
 
 #1. 데이터
@@ -30,5 +30,5 @@ print("loss : ", loss)
 y_predict = model.predict(x)
 
 plt.scatter(x, y)
-plt.plot(x, y_predict, color='red')
+plt.plot(x, y_predict, color='red')  
 plt.show()

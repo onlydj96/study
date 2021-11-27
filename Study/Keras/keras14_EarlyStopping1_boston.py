@@ -22,9 +22,15 @@ model.add(Dense(1))
 
 model.compile(loss='mse', optimizer='adam')
 
-from tensorflow.keras.callbacks import EarlyStopping
+from tensorflow.keras.callbacks import EarlyStopping  
 
 es = EarlyStopping(monitor='val_loss', patience=100, mode='min', verbose=1)
+
+'''
+EarlyStopping은 fit에서 epochs이 끝나기전에 최적의 loss값이 나왔을 때 멈추는 함수
+patience= 는 earlystopping을 한 후 최적값이 이후에 더 나올지 확인해보는 과정
+'''
+
 
 start = time.time()
 hist = model.fit(x_train, y_train, epochs=10000, batch_size=1, verbose=1,
@@ -53,6 +59,6 @@ plt.legend(loc='upper right')
 plt.show()
 
 '''
-loss :  26.892961502075195
-r2 스코어 :  0.681433684999565
+loss :  23.744985580444336
+r2 스코어 :  0.7187237493648082
 '''
