@@ -23,7 +23,7 @@ model.add(Dense(1))
 model.compile(loss='mse', optimizer='adam')
 
 start = time.time()
-model.fit(x, y, epochs=1000, batch_size=1, verbose=3)
+model.fit(x, y, epochs=1000, batch_size=1, verbose=3)  # verbose= 는 model.fit을 통해 구현되는 데이터에 표시되는 형태를 결정, 값이 높아질 수록 간단한 값들만 출력됨
 end = time.time() - start
 print("걸린시간 : ", end)
 
@@ -33,8 +33,7 @@ verbose=0 : 결과값만            2.43414 초
 verbose=1 : 디폴드값            3.27426 초
 verbose=2 : lose값만            2.58225 초
 verbose=3(3이상) : epochs값만   2.37376 초
-'''
-'''
+
 #4. 평가 예측
 loss = model.evaluate(x, y)
 print("loss : ", loss)

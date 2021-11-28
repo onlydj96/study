@@ -2,16 +2,16 @@ import numpy as np
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
 from sklearn.model_selection import train_test_split
-from sklearn.datasets import load_boston
+from sklearn.datasets import load_boston  # sklearn.datasets에서는 자체에서 제공해주는 자료가 있음
 
 
 datasets = load_boston()
-x = datasets.data #
+x = datasets.data 
 y = datasets.target
 
 '''
-print(datasets.feature_names) # 데이터셋의 특성의 이름들
-print(datasets.DESCR) # 데이터셋을 소개, 설명
+print(datasets.feature_names) : 데이터셋의 특성의 이름들
+print(datasets.DESCR) : 데이터셋을 소개, 설명
 '''
 
 

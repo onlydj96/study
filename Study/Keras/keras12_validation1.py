@@ -24,7 +24,11 @@ model.add(Dense(1))
 #3. 컴파일, 훈련
 model.compile(loss='mse', optimizer='adam')
 model.fit(x_train, y_train, epochs=500, batch_size=1, verbose=1, 
-          validation_data=(x_val, y_val))
+          validation_data=(x_val, y_val))  
+
+'''
+validation 이란 test에서 평가하기 전에 train 단계에서 자체적으로 평가하는 것을 의미한다. 
+'''
 
 #4. 평가, 예측
 loss = model.evaluate(x_test, y_test)
