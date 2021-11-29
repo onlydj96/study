@@ -74,15 +74,20 @@ from sklearn.metrics import r2_score
 r2 = r2_score(y_test, result)
 print("r2 스코어 : ", r2)
 
-plt.figure(figsize=(9,5))
-plt.plot(hist.history['loss'], marker='.', c='red', label='loss')
+plt.figure(figsize=(9,5)) # 그래프의 사이즈
+plt.plot(hist.history['loss'], marker='.', c='red', label='loss')  
 plt.plot(hist.history['val_loss'], marker='.', c='blue', label='val_loss')
-plt.grid()
-plt.title('loss')
-plt.ylabel('loss')
-plt.xlabel('epochs')
-plt.legend(loc='upper right')
-plt.show()
+'''
+plot : 그래프 위에 저장되는 데이터를 표현하는 함수
+marker='.' : 데이터를 표시하는 수단을 점으로 표현
+c= : color 
+'''
+plt.grid()    # 모눈종이
+plt.title('loss') # 제목
+plt.ylabel('loss') # y축의 제목(title)
+plt.xlabel('epochs') # x축의 제목(title)
+plt.legend(loc='upper right') # 기호설명표, loc = location
+plt.show() # 그래프 시각화
 
 '''
 loss :  28.241247177124023

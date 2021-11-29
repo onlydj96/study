@@ -24,7 +24,7 @@ model.compile(loss='mse', optimizer='adam')
 
 from tensorflow.keras.callbacks import EarlyStopping  
 
-es = EarlyStopping(monitor='val_loss', patience=100, mode='min', verbose=1)
+es = EarlyStopping(monitor='val_loss', patience=20, mode='min', verbose=1)
 
 '''
 EarlyStopping은 fit에서 epochs이 끝나기전에 최적의 loss값이 나왔을 때 멈추는 함수
@@ -34,7 +34,7 @@ patience= 는 earlystopping을 한 후 최적값이 이후에 더 나올지 확�
 
 start = time.time()
 hist = model.fit(x_train, y_train, epochs=10000, batch_size=1, verbose=1,
-          validation_split=0.2, callbacks=[es])
+          validation_split=0.2, callbacks=[es])  # model.fit에 EarlyStopping을 적용
 end = time.time() - start
 print("걸린 시간 : ", round(end, 2), '초')
 

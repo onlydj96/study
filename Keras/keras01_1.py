@@ -14,7 +14,12 @@ model.add(Dense(1, input_dim=1))
 #3. 컴파일, 훈련
 model.compile(loss='mse', optimizer='adam')
 
-model.fit(x, y, epochs=4500, batch_size=1)
+model.fit(x, y, epochs=500, batch_size=1) 
+
+'''
+batch : 가중치 등의 매개 변수의 값을 조정하기 위해 사용하는 데이터의 양
+1epoch당 시간은 오래 걸리고 메모리를 크게 요구하나, 전역 최솟값을 찾을 수 있다
+'''
 
 #4. 평가, 예측
 loss = model.evaluate(x, y)
