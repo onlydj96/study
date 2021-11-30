@@ -17,6 +17,23 @@ y = datasets.target
 from tensorflow.keras.utils import to_categorical
 y = to_categorical(y)
 
+'''
+다중 분류는 OneHotEncoding을 해야하기 때문에 이런 방법을 제시한다.
+1. categorical : 0컬럼부터 마지막 컬럼까지 빈부분까지 다 포함하여 배열해줌
+from tensorflow.keras.utils import to_categorical
+
+2. onehotencoding : 1칼럼부터 정해져있는 컬럼의 개수만큼 배열
+from sklearn.preprocessing import OneHotEncoder
+y = y.reshape(-1,1)
+ohe = OneHotEncoder()
+ohe.fit(y)
+y_ohe = ohe.transform(y)
+y = y_ohe.toarray()
+
+3. get_dummies : 상동, 행까지 표시
+import pandas as pd
+y = pd.get_dummies(y) 
+'''
 from sklearn.model_selection import train_test_split
 x_train, x_test, y_train, y_test = train_test_split(x, y, train_size=0.8, random_state=1004)
 
