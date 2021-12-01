@@ -50,7 +50,7 @@ model.add(Dense(1))
 model.compile(loss='mse', optimizer='adam')
 es = EarlyStopping(monitor="val_loss", patience=100, mode='min', verbose=1, restore_best_weights=True)
 
-model.fit(x, y, epochs=1000, batch_size=32, verbose=2, validation_split=0.2, callbacks=[es])
+model.fit(x, y, epochs=1000, batch_size=16, verbose=1, validation_split=0.2, callbacks=[es])
 
 #4. 결과
 loss = model.evaluate(x_test, y_test)

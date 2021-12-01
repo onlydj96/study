@@ -21,7 +21,7 @@ y = datasets.target
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, shuffle=True, random_state=1004)
 
 # print(datasets.DESCR)
-# print(datasets.feature_names)
+# print(datasets.feature_names)   
 # print(x.shape, y.shape) # (569. 30), (569,)
 
 print(np.unique(y)) # y에 반환되는 값을 정리
