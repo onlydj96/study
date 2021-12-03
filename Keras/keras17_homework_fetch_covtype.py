@@ -39,7 +39,7 @@ es = EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=20, resto
 model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 
 start = time.time()
-model.fit(x_train, y_train, epochs=1000, batch_size=32, verbose=1, validation_split=0.2, callbacks=[es])
+model.fit(x_train, y_train, epochs=1000, batch_size=32, verbose=1, validation_split=0.2, callbacks=[es])  # batch_size의 디폴드값은 32이다
 end = time.time() - start
 print("걸린 시간 : ", round(end, 2), "초")
 

@@ -26,7 +26,8 @@ model.compile(loss='mse', optimizer='adam')
 
 from tensorflow.keras.callbacks import EarlyStopping
 
-es = EarlyStopping(monitor='val_loss', patience=20, mode='min', verbose=1)
+es = EarlyStopping(monitor='val_loss', patience=20, mode='min', verbose=1, restore_best_weights=True)
+
 
 
 start = time.time()
@@ -35,6 +36,12 @@ hist = model.fit(x_train, y_train, epochs=10000, batch_size=1, verbose=1,
 end = time.time() - start
 print("걸린 시간 : ", round(end, 2), '초')
 
+'''
+Earlystopping은 minimum val_loss 값을 찾고나서 바로 멈추지 않고 patience= 만큼 더 최저값을 찾는 과정을 거친다. 
+문제는 Earlystopping으로 멈춘 model.fit은 Earlystopping point가 아닌 patience만큼 지난 값을 가중치로 갖는다는 것이다.
+따라서 restore_best_weights = '라는 함수가 early stopping한 최적의 loss값을 복원하여 test값을 출력한다. 
+'''
+
 loss = model.evaluate(x_test, y_test)
 print("loss : ", loss)
 result = model.predict(x_test)
@@ -42,9 +49,3 @@ from sklearn.metrics import r2_score
 r2 = r2_score(y_test, result)
 print("r2 스코어 : ", r2)
 
-
-'''
-Earlystopping은 minimum val_loss 값을 찾고나서 바로 멈추지 않고 patience= 만큼 더 최저값을 찾는 과정을 거친다. 
-문제는 Earlystopping으로 멈춘 model.fit은 Earlystopping point가 아닌 patience만큼 지난 값을 가중치로 갖는다는 것이다.
-따라서 restore_best_weights = '라는 함수가 early stopping한 최적의 loss값을 복원하여 test값을 출력한다. 
-'''

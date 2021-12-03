@@ -26,8 +26,7 @@ from tensorflow.keras.utils import to_categorical
 from sklearn.preprocessing import OneHotEncoder
 y = y.reshape(-1,1)
 ohe = OneHotEncoder()
-ohe.fit(y)
-y_ohe = ohe.transform(y)
+y_ohe = ohe.fit_transform(y)
 y = y_ohe.toarray()
 
 3. get_dummies : 상동, 행까지 표시
@@ -56,6 +55,9 @@ model.fit(x_train, y_train, epochs=1000, batch_size=1, verbose=1, validation_spl
 loss = model.evaluate(x_test, y_test)
 print("loss : ", loss[0])
 print("accuracy : ", loss[1])
+
+y_pred = model.predict(x_test)
+print("예측값 : ", y_pred)
 
 '''
 loss :  0.18074281513690948

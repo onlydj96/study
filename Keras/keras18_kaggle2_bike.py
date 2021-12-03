@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 
 
 #1. 데이터 분석
-path = "./_data/bike/"
+path = "../_data/kaggle/bike/"
 train = pd.read_csv(path + "train.csv") # (10886, 12)
 test_file = pd.read_csv(path + "test.csv") # (6493, 9)
 submit_file = pd.read_csv(path + "sampleSubmission.csv") # (6493, 2)
@@ -33,8 +33,12 @@ y의 값은 train데이터에 count만
 '''
 
 
-y = np.log1p(y) # 로그변환, 값중에 0은 로그를 사용할 수 없기때문에 1p(+1)을 사용하여 함수를 사용한다.
+y = np.log1p(y) 
 
+'''
+로그변환은 데이터의 loss값이 매우 클 때 사용한다.
+위의 식의 값중에 '0'은 로그를 사용할 수 없기때문에 1p(+1)을 사용하여 함수를 사용한다.
+'''
 x_train, x_test, y_train, y_test = train_test_split(x, y, train_size=0.8, random_state=1004)
 
 #2. 모델구성
@@ -67,8 +71,6 @@ def RMSE(y_test, y_pred):     # tensorflow에서는 'rmse'를 지원하지 않�
 rmse = RMSE(y_test, y_pred) 
 print("RMSE : ", rmse)
 
-# plt.plot(y)
-# plt.show
 
 '''
 평균(mean)은 데이터를 모두 더한 후 데이터의 갯수로 나눈 값이다. 중앙값(median)은 전체 데이터 중 가운데에 있는 수이다. 

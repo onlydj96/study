@@ -81,7 +81,7 @@ accuracy :  0.8789790272712708
 # Standard
 loss :  0.2828752100467682
 accuracy :  0.8853471875190735
-# Robuster
+# Robust
 loss :  0.2740715742111206
 accuracy :  0.8899942636489868
 # MaxAbs

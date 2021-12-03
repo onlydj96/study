@@ -7,17 +7,20 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler, \
-                                  StandardScaler, RobustScaler, MaxAbsScaler
+                                  StandardScaler, RobustScaler, MaxAbsScaler    # 4가지의 Scaler 함수
 from sklearn.datasets import load_boston
 
 datasets = load_boston()
 x = datasets.data 
 y = datasets.target
 
-
+'''
+데이터 전처리를 간단하게 하는법
 # print(np.min(x), np.max(x))  # 0.0 711.0
 # x = x/711
 # x = x/np.max(x)
+
+'''
 
 x_train, x_test, y_train, y_test = train_test_split(x, y, train_size=0.3, random_state=1004)
 
@@ -40,7 +43,7 @@ test의 값들은 train에서 바꾼 0과 1기준에 맞추어 scaling한다.
 #2. 모델 구성
 model = Sequential()
 model.add(Dense(100, input_dim=13))
-model.add(Dense(50, activation='relu'))
+model.add(Dense(50, activation='relu')) # relu함수는 layers에 y=wx+b라는 함수에 음수가 나올때, 그것을 0으로 바꿔준다.
 model.add(Dense(10, activation='relu'))
 model.add(Dense(3, activation='relu'))
 model.add(Dense(1))
@@ -58,7 +61,6 @@ y_pred = model.predict(x_test)
 
 from sklearn.metrics import r2_score 
 r2 = r2_score(y_test, y_pred)
-
 print("r2스코어", r2)
 
 
