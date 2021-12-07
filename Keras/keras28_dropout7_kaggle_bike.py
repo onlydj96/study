@@ -28,6 +28,7 @@ x_test = scaler.transform(x_test)
 #2. 모델구성
 model = Sequential()
 model.add(Dense(100, input_dim=8))
+
 model.add(Dense(50, activation='relu'))
 model.add(Dense(10, activation='relu'))
 model.add(Dense(3, activation='relu'))
@@ -47,7 +48,7 @@ model_path = "".join([filepath, '7_kaggle_bike_', datetime, '_', filename])
 
 es = EarlyStopping(monitor="val_loss", patience=20, mode='min', verbose=1, restore_best_weights=True)
 mcp = ModelCheckpoint(monitor='val_loss', mode='min', save_best_only=True, filepath=model_path)
-model.fit(x_train, y_train, epochs=1000, batch_size=32, verbose=2, validation_split=0.2, callbacks=[es, mcp])
+model.fit(x_train, y_train, epochs=1000, batch_size=32, verbose=2, validation_split=0.2, callbacks=[es])
 
 #4. 결과
 loss = model.evaluate(x_test, y_test)
@@ -64,7 +65,7 @@ rmse = RMSE(y_test, y_pred)
 print("RMSE : ", rmse)
 
 '''
-loss :  1.397553563117981
-r2스코어 0.3239458778420512
-RMSE :  1.1821816913770529
+loss :  1.4173007011413574
+r2스코어 0.31439341284316624
+RMSE :  1.1905043517482417
 '''

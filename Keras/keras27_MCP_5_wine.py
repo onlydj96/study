@@ -52,3 +52,6 @@ loss = model.evaluate(x_test, y_test)
 print("loss : ", loss)
 y_predict = model.predict(x_test)
 
+'''
+loss :  [0.37581920623779297, 0.8960000276565552]
+'''

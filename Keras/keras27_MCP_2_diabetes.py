@@ -47,3 +47,8 @@ y_predict = model.predict(x_test)
 from sklearn.metrics import r2_score 
 r2 = r2_score(y_test, y_predict)
 print("r2스코어", r2)
+
+'''
+loss :  3583.90673828125
+r2스코어 0.42212981617853607
+'''

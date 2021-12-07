@@ -6,6 +6,7 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
 from sklearn.preprocessing import MaxAbsScaler
 from tensorflow.python.keras.callbacks import ModelCheckpoint
+from tensorflow.python.keras.layers.core import Dropout
 from tensorflow.python.keras.metrics import accuracy
 import time
 
@@ -16,7 +17,6 @@ y = datasets.target # (581012, )
 
 import pandas as pd
 y = pd.get_dummies(y)
-print(y)
 
 from sklearn.model_selection import train_test_split
 x_train, x_test, y_train, y_test = train_test_split(x, y, train_size=0.8, random_state=1004)
@@ -30,8 +30,10 @@ x_test = scaler.transform(x_test)
 #2. 모델 구성
 model = Sequential()
 model.add(Dense(100, input_dim=54))
+model.add(Dropout(0.2))
 model.add(Dense(60, activation='relu'))
 model.add(Dense(30, activation='relu'))
+model.add(Dropout(0.3))
 model.add(Dense(15, activation='relu'))
 model.add(Dense(7, activation='softmax'))
 

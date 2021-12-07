@@ -1,6 +1,6 @@
 import numpy as np
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense
+from tensorflow.keras.layers import Dense, Dropout
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MaxAbsScaler
 from sklearn.datasets import load_breast_cancer
@@ -20,8 +20,10 @@ x_test = scaler.transform(x_test)
 #2. 모델 구성
 model = Sequential()
 model.add(Dense(100, input_dim=30))
+model.add(Dropout(0.2))
 model.add(Dense(50, activation='relu'))
 model.add(Dense(10, activation='relu'))
+model.add(Dropout(0.2))
 model.add(Dense(3, activation='relu'))
 model.add(Dense(1, activation='sigmoid'))
 
@@ -47,5 +49,5 @@ print("loss : ", loss)
 y_predict = model.predict(x_test)
 
 '''
-loss :  [0.3044029176235199, 0.9573934674263]
+loss :  [0.13947582244873047, 0.9624060392379761]
 '''
