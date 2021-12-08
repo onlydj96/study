@@ -9,14 +9,13 @@ y = np.array([1, 2, 3])
 
 #2. 모델구성
 model = Sequential()
-model.add(Dense(3000, input_dim=1))
-model.add(Dense(100))
+model.add(Dense(100, input_dim=1))
+model.add(Dense(50))
+model.add(Dense(10))
 model.add(Dense(5))
-model.add(Dense(80))
-model.add(Dense(15))
-model.add(Dense(5))
-model.add(Dense(3))
 model.add(Dense(1)) 
+
+model.summary()
 
 '''
 다중 신경망을 구성히여 모델구성을 할 경우 이러한 형태를 "딥러닝" 이라고 한다. 
@@ -24,21 +23,21 @@ model.add(Dense(1))
 '''
 
 #3. 컴파일, 훈련
-model.compile(loss='mse', optimizer='adam')
+# model.compile(loss='mse', optimizer='adam')
 
-model.fit(x, y, epochs=50, batch_size=1)  # model.fit 에서 구성한 모델을 머신에게 훈련시킨다.
+# model.fit(x, y, epochs=50, batch_size=1)  # model.fit 에서 구성한 모델을 머신에게 훈련시킨다.
 
-'''
-epochs = 훈련양
-batch_size = 한번의 layer를 거칠때 훈련하는 데이터의 개수
-'''
+# '''
+# epochs = 훈련양
+# batch_size = 한번의 layer를 거칠때 훈련하는 데이터의 개수
+# '''
 
 
-#4. 평가, 예측
-loss = model.evaluate(x, y)  # model.evalaute 에서 구성한 모델을 평가한다.
-print('loss :', loss) 
-result = model.predict([4])
-print('4의 예측값 : ', result)
+# #4. 평가, 예측
+# loss = model.evaluate(x, y)  # model.evalaute 에서 구성한 모델을 평가한다.
+# print('loss :', loss) 
+# result = model.predict([4])
+# print('4의 예측값 : ', result)
 
 '''
 loss : 1.308856667492364e-08

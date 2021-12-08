@@ -31,9 +31,9 @@ y_test = pd.get_dummies(y_test)
 
 # 모델 구성
 model = Sequential()
-model.add(Conv2D(4, kernel_size=(2,2), input_shape=(28, 28, 1)))   # 27, 27, 6
-model.add(Conv2D(3, (3, 3), activation='relu'))   # 7, 7, 5
-model.add(Conv2D(2, (2, 2), activation='relu'))   # 6, 6, 7
+model.add(Conv2D(5, kernel_size=(2,2), input_shape=(28, 28, 1)))   # 27, 27, 6
+model.add(Conv2D(4, (3, 3), activation='relu'))   # 7, 7, 5
+model.add(Conv2D(3, (2, 2), activation='relu'))   # 6, 6, 7
 model.add(Flatten())
 model.add(Dense(60))
 model.add(Dropout(0.2))
@@ -45,7 +45,7 @@ model.add(Dense(10, activation='softmax'))
 model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 from tensorflow.keras.callbacks import EarlyStopping
 es = EarlyStopping(monitor='val_loss', patience=10, mode='min', restore_best_weights=True)
-model.fit(x_train, y_train, epochs=300, batch_size=1000, validation_split=0.2)
+model.fit(x_train, y_train, epochs=300, batch_size=32, validation_split=0.2)
 
 loss = model.evaluate(x_test, y_test)
 print('loss : ', loss)
