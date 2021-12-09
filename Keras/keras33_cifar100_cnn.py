@@ -4,7 +4,7 @@ import numpy as np
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Conv2D, Flatten, Dropout, MaxPool2D
 from tensorflow.keras.utils import to_categorical
-from sklearn.preprocessing import MinMaxScaler
+from sklearn.preprocessing import MinMaxScaler, StandardScaler
 
 
 #1. 데이터 전처리
@@ -13,7 +13,9 @@ from sklearn.preprocessing import MinMaxScaler
 # print(x_train.shape, y_train.shape) # (50000, 32, 32, 3) (50000, 1)
 # print(x_test.shape, y_test.shape) # (10000, 32, 32, 3) (10000, 1)
 
-scaler = MinMaxScaler()
+
+scaler = StandardScaler()
+# scaler = MinMaxScaler()
 x_train = x_train.reshape(50000, -1)
 x_test = x_test.reshape(10000, -1)
 scaler.fit(x_train)
@@ -34,6 +36,7 @@ y_test = to_categorical(y_test)
 model = Sequential()
 model.add(Conv2D(10, kernel_size=(3,3), strides=2, padding='same', input_shape=(32, 32, 3)))   
 model.add(MaxPool2D())
+model.add(Dropout(0.2))
 model.add(Conv2D(5, (2,2), activation='relu')) 
 model.add(Flatten())
 model.add(Dense(32, activation='relu'))

@@ -5,6 +5,7 @@ from tensorflow.keras.layers import Dense
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import MinMaxScaler, StandardScaler, RobustScaler, MaxAbsScaler
 from tensorflow.keras.callbacks import EarlyStopping
+from tensorflow.python.keras.layers.core import Dropout
 
 
 path = "../_data/dacon/wine/"
@@ -30,7 +31,7 @@ test_file['type'] = le.transform(test_file['type'])
 label encoding을 통해서 str로 되있는 정보들을 숫자값으로 변환시켜준다.(문자형은 계산을 못함)
 '''
 
-x_train, x_test, y_train, y_test = train_test_split(x, y, train_size=0.8, random_state=1)
+x_train, x_test, y_train, y_test = train_test_split(x, y, train_size=0.8, random_state=66)
 
 # scaler = RobustScaler()
 scaler = MinMaxScaler()
@@ -46,15 +47,16 @@ test_file = scaler.transform(test_file)
 
 model = Sequential()
 model.add(Dense(100, input_dim=x.shape[1]))
-model.add(Dense(60, activation='relu'))
-model.add(Dense(40, activation='relu'))
-model.add(Dense(20, activation='relu'))
+model.add(Dropout(0.2))
+model.add(Dense(50, activation='relu'))
+model.add(Dense(25, activation='relu'))
 model.add(Dense(10, activation='relu'))
+model.add(Dropout(0.2))
 model.add(Dense(5, activation='softmax'))
 
 model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
-es = EarlyStopping(monitor='val_loss', patience=300, mode='min', verbose=1, restore_best_weights=True)
-model.fit(x_train, y_train, epochs=10000, validation_split=0.2, verbose=3, batch_size=16, callbacks=[es])
+es = EarlyStopping(monitor='val_loss', patience=50, mode='min', verbose=1, restore_best_weights=True)
+model.fit(x_train, y_train, epochs=10000, validation_split=0.2, verbose=1, batch_size=16, callbacks=[es])
 
 
 loss = model.evaluate(x_test, y_test)

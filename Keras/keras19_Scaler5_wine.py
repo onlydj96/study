@@ -11,8 +11,9 @@ from sklearn.datasets import load_wine
 import time
 
 datasets = load_wine()
-x = datasets.data 
-y = datasets.target
+x = datasets.data # (178, 13) 
+y = datasets.target  # (178,)
+
 
 from tensorflow.keras.utils import to_categorical
 y = to_categorical(y)

@@ -36,7 +36,6 @@ model = Sequential()
 model.add(Conv2D(10, kernel_size=(3,3), strides=2, padding='same', input_shape=(28, 28, 1)))   # 27, 27, 6  
 model.add(MaxPool2D())
 model.add(Conv2D(5, (3,3), activation='relu'))   # 7, 7, 5
-model.add(Conv2D(3, (2,2)))   # 6, 6, 7
 model.add(Flatten())
 model.add(Dense(32, activation='relu'))
 model.add(Dropout(0.2))
@@ -64,5 +63,5 @@ model.save("./_save/fashion_{}.h5".format(acc))
 
 
 '''
-loss :  [0.33200836181640625, 0.8806999921798706]
+loss :  [0.3363991975784302, 0.8810999989509583]
 '''

@@ -16,7 +16,7 @@ y = datasets.target
 
 '''
 데이터 전처리를 간단하게 하는법
-# print(np.min(x), np.max(x))  # 0.0 711.0
+# print(np.min(x), np.max(x))  # 0.0 711.0   
 # x = x/711
 # x = x/np.max(x)
 
@@ -24,7 +24,7 @@ y = datasets.target
 
 x_train, x_test, y_train, y_test = train_test_split(x, y, train_size=0.3, random_state=1004)
 
-
+print(x.shape)
 
 scaler = MinMaxScaler()
 # scaler = StandardScaler()
