@@ -26,10 +26,12 @@ y_test = pd.get_dummies(y_test)
 #2. 모델 구성
 model = Sequential()
 model.add(Conv2D(10, kernel_size=(2, 2), padding='same', input_shape=(9, 6, 1)))
+model.add(MaxPool2D())
+model.add(Conv2D(5, kernel_size=(2, 2)))
 model.add(Flatten())
 model.add(Dense(64))
 model.add(Dropout(0.2))
-model.add(Dense(32))
+model.add(Dense(32, activation='relu'))
 model.add(Dense(7, activation='softmax'))
 
 #3. 컴파일

@@ -29,10 +29,10 @@ x_test = scaler.fit_transform(x_test).reshape(2178, 4, 2, 1)
 model = Sequential()
 model.add(Conv2D(10, kernel_size=(2, 2), padding='same', input_shape=(4, 2, 1)))
 model.add(Flatten())
-model.add(Dense(64))
+model.add(Dense(64, activation='relu'))
 model.add(Dropout(0.2))
 model.add(Dense(32, activation='relu'))
-model.add(Dense(1 ))
+model.add(Dense(1))
 
 
 #3. 컴파일
