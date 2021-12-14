@@ -1,3 +1,6 @@
+
+# CNN에 Scaler 적용하는 방법
+
 import numpy as np
 import pandas as pd
 from tensorflow.keras.models import Sequential

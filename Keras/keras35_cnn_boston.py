@@ -1,3 +1,7 @@
+
+# 데이터 상관관계를 파악하여 전처리하는 법
+# Drop함수로 필요없는 열을 제거하는 법
+
 import numpy as np
 import seaborn
 from tensorflow.keras.models import Sequential
@@ -36,21 +40,15 @@ x_refine = x_refine.to_numpy()
 y column과 비교했을 떄 상관관계가 낮은 행과 y를 제거한다.
 최종 정제된 x데이터는 modeling과 compile을 위해서 다시 numpy형으로 바꾼다.
 '''
-
-
 # print(type(x_cnn))
 # print(x_cnn)
 # print(x_cnn.corr())
 
-
 x_train, x_test, y_train, y_test = train_test_split(x_refine, y, train_size=0.8, random_state=1)
-
 
 scaler = MinMaxScaler()
 x_train = scaler.fit_transform(x_train).reshape(404, 4, 3, 1)
 x_test = scaler.fit_transform(x_test).reshape(102, 4, 3, 1)
-
-
 
 #2. 모델 구성
 

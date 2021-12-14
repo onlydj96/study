@@ -24,7 +24,6 @@ x_train = scaler.fit_transform(x_train).reshape(8708, 4, 2, 1)
 x_test = scaler.fit_transform(x_test).reshape(2178, 4, 2, 1)
 
 
-
 #2. 모델구성
 model = Sequential()
 model.add(Conv2D(10, kernel_size=(2, 2), padding='same', input_shape=(4, 2, 1)))
