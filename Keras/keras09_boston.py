@@ -1,10 +1,13 @@
+
+# Boston 데이터 로드 및 딥러닝 구현
+
 import numpy as np
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
 from sklearn.model_selection import train_test_split
 from sklearn.datasets import load_boston  # sklearn.datasets에서는 자체에서 제공해주는 자료가 있음
 
-
+#1. 데이터 구성
 datasets = load_boston()
 x = datasets.data 
 y = datasets.target

@@ -1,3 +1,7 @@
+
+# ModelCheckPoint의 의미와 구현방식
+# 일정구간에서의 시간을 재는 법
+
 import numpy as np
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
@@ -29,10 +33,11 @@ from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint
 es = EarlyStopping(mode='min', patience=10, monitor='val_loss', verbose=1, restore_best_weights=True) 
 mcp = ModelCheckpoint(monitor='val_loss', mode='auto', verbose=1, save_best_only=True, filepath='./_ModelCheckPoint/keras26_1_MCP.hdf5')
 
-start = time.time()
+start = time.time()  
 hist = model.fit(x_train, y_train, epochs=100, batch_size=1, verbose=1,
           validation_split=0.3, callbacks=[es, mcp])
 end = time.time() - start
+
 
 print("===================================================================")
 print(hist.history['val_loss'])

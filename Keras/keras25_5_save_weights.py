@@ -1,3 +1,6 @@
+
+# 가중치를 저장하는 방법
+
 import numpy as np
 from tensorflow.keras.models import load_model
 from tensorflow.keras.layers import Dense

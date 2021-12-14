@@ -1,3 +1,6 @@
+
+# Deep Learning의 기본 구성
+
 # import tensorflow as tf
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense

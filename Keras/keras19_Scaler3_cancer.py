@@ -1,6 +1,3 @@
-########################################
-# 각각의 Scaler의 특성과 정의를 정리하시오
-########################################
 
 import numpy as np
 from tensorflow.keras.models import Sequential

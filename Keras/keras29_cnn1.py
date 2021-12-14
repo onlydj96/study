@@ -1,3 +1,7 @@
+
+# CNN의 기본적인 모델구성 및 부속 함수용어 설명
+# CNN의 parameter연산 원리
+
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Conv2D, Flatten, MaxPool2D
 from tensorflow.python.keras.backend import conv2d

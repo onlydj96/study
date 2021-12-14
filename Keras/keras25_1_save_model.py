@@ -1,3 +1,6 @@
+
+# 구현된 모델을 저장하는 법
+
 import numpy as np
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense

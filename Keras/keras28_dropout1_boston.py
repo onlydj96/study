@@ -1,3 +1,6 @@
+
+# Dropout 함수의 의미 및 구현
+    
 import numpy as np
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Dropout   # layers 에 Dropout 모델을 추가
@@ -20,10 +23,10 @@ x_test = scaler.transform(x_test)
 #2. 모델 구성
 model = Sequential()
 model.add(Dense(100, input_dim=13))
-model.add(Dropout(0.2))   # Dense(100)에 적용됨
+model.add(Dropout(0.5))   # Dense(100)에 50% 적용됨
 model.add(Dense(50, activation='relu')) 
 model.add(Dense(10, activation='relu'))
-model.add(Dropout(0.2))    # Dense(10)에 적용됨
+model.add(Dropout(0.2))    # Dense(10)에 20% 적용됨
 model.add(Dense(3, activation='relu'))
 model.add(Dense(1))
 

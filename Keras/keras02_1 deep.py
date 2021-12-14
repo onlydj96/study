@@ -1,3 +1,6 @@
+
+# Deep Learning의 구조파악 및 모델링 이해
+
 # import tensorflow as tf
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense

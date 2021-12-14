@@ -1,6 +1,7 @@
-########################################
-# 각각의 Scaler의 특성과 정의를 정리하시오
-########################################
+
+# Scaler의 의미와 특성을 정리 및 구현
+# Scaler를 사용하지 않고 데이터 전처리 하는 법
+
 
 import numpy as np
 from tensorflow.keras.models import Sequential

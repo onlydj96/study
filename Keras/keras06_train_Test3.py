@@ -1,3 +1,6 @@
+
+# train과 test를 분리하는 함수적용
+
 import numpy as np
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense

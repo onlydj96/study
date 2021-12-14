@@ -1,3 +1,6 @@
+
+# 저장된 모델을 불러오는 법
+
 import numpy as np
 from tensorflow.keras.models import load_model # save되어있는 model을 import하는 함수
 from tensorflow.keras.layers import Dense

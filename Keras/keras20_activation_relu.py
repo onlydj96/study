@@ -1,4 +1,6 @@
-# import tensorflow as tf
+
+# Activation인 Relu 함수 사용
+
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense
 import numpy as np

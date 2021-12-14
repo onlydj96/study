@@ -1,3 +1,6 @@
+
+# 다중 퍼셉트론 딥러닝의 기본 예측 모델 구현
+
 import numpy as np
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense

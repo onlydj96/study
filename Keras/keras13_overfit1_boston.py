@@ -1,3 +1,6 @@
+
+# 과적합의 의미, history함수 사용하기
+
 import numpy as np
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense

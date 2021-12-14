@@ -1,3 +1,7 @@
+
+# 다중분류 softmax 함수 사용
+# 원핫인코딩 to_categorical 사용
+
 import numpy as np
 from sklearn.datasets import load_iris
 from tensorflow.keras.models import Sequential

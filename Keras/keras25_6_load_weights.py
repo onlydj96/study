@@ -1,3 +1,6 @@
+
+# 저장된 가중치를 로드하는 방법
+
 import numpy as np
 from tensorflow.keras.models import load_model, Sequential
 from tensorflow.keras.layers import Dense
@@ -5,14 +8,14 @@ from sklearn.model_selection import train_test_split
 from sklearn.datasets import load_boston
 import time
 
-
+#1. 데이터
 datasets = load_boston()
 x = datasets.data 
 y = datasets.target
 
 x_train, x_test, y_train, y_test = train_test_split(x, y, train_size=0.8, random_state=1004)
 
-# 모델 구성
+#2. 모델 구성
 model = Sequential()
 model.add(Dense(100, input_dim=13))
 model.add(Dense(50))
@@ -27,7 +30,7 @@ model.add(Dense(1))
 # model.summary()
 # model.save_weights("./_save/keras25_1_save_weights.h5")
 
-# 컴파일
+#3. 컴파일
 from tensorflow.keras.callbacks import EarlyStopping
 es = EarlyStopping(monitor='val_loss', mode='min', verbose=1, patience=10, restore_best_weights=True)
 model.compile(loss='mse', optimizer='adam', metrics=['accuracy'])
@@ -41,7 +44,7 @@ model.save_weights("./_save/keras25_3_save_weights.h5")
 
 
 
-# 평가, 예측
+#4. 평가, 예측
 loss = model.evaluate(x_test, y_test)
 print("loss : ", loss)
 result = model.predict(x_test)

@@ -1,3 +1,6 @@
+
+# 원핫인코딩인 onehotencoding, pandas.get_dummies 사용
+
 import numpy as np
 from sklearn import datasets
 from sklearn.datasets import load_wine

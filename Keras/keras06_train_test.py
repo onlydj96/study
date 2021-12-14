@@ -1,3 +1,6 @@
+
+# X와 Y값을 분리하여 train과 test 데이터를 구현
+
 import numpy as np
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense

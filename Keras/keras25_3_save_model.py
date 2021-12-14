@@ -1,3 +1,6 @@
+
+# 저장하는 위치에 따라 저장되는 용량의 차이
+
 import numpy as np
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense

@@ -1,3 +1,6 @@
+
+# validation에서 자체적으로 split하는 방법
+
 import numpy as np
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense

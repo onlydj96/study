@@ -1,3 +1,6 @@
+
+# 넘파이 행렬의 shape을 변환하는 방법
+
 import numpy as np
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense

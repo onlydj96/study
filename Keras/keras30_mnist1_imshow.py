@@ -1,3 +1,6 @@
+
+# matplotlib 활용해서 이미지 데이터 로드하는 법
+
 import numpy as np
 from tensorflow.keras.datasets import mnist
 

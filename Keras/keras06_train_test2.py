@@ -1,3 +1,6 @@
+
+# train과 test 분리를 비율에 맞춰서 하는 방법
+
 import numpy as np
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense

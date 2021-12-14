@@ -1,3 +1,6 @@
+
+#  Epoch의 기능과 결과값
+
 # import tensorflow as tf
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense

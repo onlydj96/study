@@ -1,4 +1,5 @@
 
+# 이진분류 sigmoid 함수 사용법
 
 import numpy as np
 from tensorflow.keras.models import Sequential

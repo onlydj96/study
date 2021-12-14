@@ -1,4 +1,5 @@
-# R2 = 0.62이상
+
+# Diabetes 데이터 로드 및 딥러닝 구현
 
 import numpy as np
 from numpy.lib.npyio import load
