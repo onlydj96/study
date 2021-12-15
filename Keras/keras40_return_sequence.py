@@ -1,9 +1,9 @@
 
-# 예측값을 80을 만들어라, 하지만 80은 절대 못만듦...
+# LSTM을 연속해서 모델링을 하는 방법
 
 import numpy as np
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense, Dropout, SimpleRNN, LSTM
+from tensorflow.keras.layers import Dense, LSTM
 
 #1. 데이터
 x = np.array([[1, 2, 3], [2, 3, 4], [3, 4, 5], [4, 5, 6],
@@ -19,35 +19,34 @@ x = x.reshape(13, 3, 1)
 
 #2. 모델
 model = Sequential()
-model.add(LSTM(532, input_shape=(3, 1)))
+model.add(LSTM(532, input_shape=(3, 1), return_sequences=True)) 
+model.add(LSTM(163, return_sequences=True))
+model.add(LSTM(163, return_sequences=True))
+model.add(LSTM(163, return_sequences=True))
+model.add(LSTM(163, return_sequences=False))
 model.add(Dense(128, activation='relu'))
-# model.add(Dropout(0.5))
 model.add(Dense(64, activation='relu'))
-# model.add(Dropout(0.2))
 model.add(Dense(32))
 model.add(Dense(16, activation='relu'))
 model.add(Dense(8))
 model.add(Dense(1))
 
+'''
+return_sequences=True : RNN구조의 layer를 연속으로 쌓기위해서 필요한 함수.
+RNN의 layer를 통과한 데이터의 shape는 3차원에서 2차원으로 변환되기 때문에 return_sequences는 차원을 유지해준다. 
+
+* 하지만 RNN 계열의 모델링은 연속을 쌓았을 때 성능이 좋아지지 않는다.
+'''
+
 #3. 컴파일
-from tensorflow.keras.callbacks import EarlyStopping
-# es = EarlyStopping(monitor='loss', mode='min', patience=100, restore_best_weights=True)
 model.compile(loss='mae', optimizer='adam') 
 model.fit(x, y, epochs=500, batch_size=2)
 
 #4. 예측
 loss = model.evaluate(x, y)
 print("loss : ", loss)
-y_predict = model.predict([[[50], [60], [70]]],)
 
+y_predict = model.predict([[[50], [60], [70]]])
 result = round(float(y_predict.reshape(-1,)), 2)
 
 print(result)
-
-model.save("./_save/LSTM_y_predict_{}.h5".format(result))
-
-
-'''
-loss :  1.233656644821167
-[[78.84124]]
-'''

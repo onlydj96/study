@@ -28,6 +28,12 @@ model.add(Dense(1))
 # model.add(Dense(10, activation='relu'))
 # model.add(Dense(1))
 
+'''
+LSTM은 hidden state만이 아니라 cell state라는 역할이 있으며 Forget gate, Input gate, Output gate를 통해 계산이 이루어진다
+즉, 4개의 gate를 통하여 연산하기 때문에 RNN에 비해서 4배의 많은 parameter를 가진다.
+
+'''
+
 #3. 컴파일 
 model.compile(loss='mae', optimizer='adam') 
 model.fit(x, y, epochs=1000, batch_size=1)

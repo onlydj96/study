@@ -1,5 +1,6 @@
 
 # RNN의 기본적인 함수와 모델링 구현
+# RNN구조의 모델링을 할 때의 알고리즘 파악
 
 '''
 RNN : Recurrent Nerual Network의 약자로 순환 신경망이라고 불린다.
@@ -30,7 +31,7 @@ x = x.reshape(4, 3, 1)  # batch_size = 4, timesteps = 3, feature = 1
 
 #2. 모델구성
 model = Sequential()
-model.add(SimpleRNN(10, input_shape=(3, 1), activation='linear'))
+model.add(SimpleRNN(10, input_shape=(3, 1)))  # (N, 3, 1) => RNN => (N, 10)
 model.add(Dense(10, activation='relu'))
 model.add(Dense(1))
 
