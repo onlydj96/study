@@ -1,11 +1,11 @@
 import numpy as np
 import pandas as pd
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense, LSTM
+from tensorflow.keras.layers import Dense, LSTM, Conv1D, MaxPool1D, Flatten
 from sklearn.model_selection import train_test_split
-from tensorflow.keras.callbacks import EarlyStopping
 from sklearn.metrics import r2_score, mean_squared_error
 from sklearn.preprocessing import MinMaxScaler, StandardScaler ,RobustScaler, MaxAbsScaler
+import time
 
 
 #1. 데이터 전처리
@@ -35,7 +35,9 @@ x_test = x_test.reshape(2178, 8, 1)
 
 #2. 모델구성
 model = Sequential()
-model.add(LSTM(100, input_shape=(8, 1)))
+model.add(Conv1D(100, 2, input_shape=(8, 1)))
+model.add(MaxPool1D())
+model.add(Flatten())
 model.add(Dense(50, activation='relu'))
 model.add(Dense(10))
 model.add(Dense(3, activation='relu'))
@@ -43,8 +45,11 @@ model.add(Dense(1))
 
 #3. 컴파일
 model.compile(loss='mse', optimizer='adam')
-es = EarlyStopping(monitor="val_loss", patience=20, mode='min', verbose=1, restore_best_weights=True)
-model.fit(x_train, y_train, epochs=1000, validation_split=0.2, callbacks=[es])
+start = time.time()
+
+model.fit(x_train, y_train, epochs=50, validation_split=0.2)
+end = time.time() - start
+print("걸린 시간 : ", round(end, 3))
 
 #4. 결과
 loss = model.evaluate(x_test, y_test)
@@ -61,13 +66,15 @@ rmse = RMSE(y_test, y_pred)
 print("RMSE : ", rmse)
 
 '''
-DNN
-loss :  1.6055853366851807
-r2스코어 0.22331225173064462
-RMSE :  1.2671170179833002
+LSTM
+걸린 시간 :  35.315
+loss :  1.422283411026001
+r2스코어 0.311983070728732
+RMSE :  1.1925952047282644
 
-RNN
-loss :  1.4073160886764526
-r2스코어 0.31922335803998436
-RMSE :  1.1863035216341713
+Conv1D
+걸린 시간 :  11.177
+loss :  1.471269965171814
+r2스코어 0.2882861618863808
+RMSE :  1.2129592241715217
 '''

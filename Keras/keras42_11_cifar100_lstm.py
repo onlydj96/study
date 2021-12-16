@@ -4,11 +4,10 @@ from tensorflow.keras.layers import Dense, LSTM
 from sklearn.preprocessing import MinMaxScaler
 from tensorflow.keras.utils import to_categorical
 
-
 #1. 데이터 정제
 (x_train, y_train), (x_test, y_test) = cifar100.load_data()
 
-# 스케일러 적용
+# data scaling
 scaler = MinMaxScaler()
 x_train = x_train.reshape(50000, -1)  # (50000, 3072)
 x_test = x_test.reshape(10000, -1)  # (10000, 3072)
@@ -17,7 +16,7 @@ scaler.fit(x_train)
 x_train = scaler.transform(x_train)
 x_test = scaler.transform(x_test)
 
-# 원핫인코딩
+# One Hot Encoding
 y_train = to_categorical(y_train)
 y_test = to_categorical(y_test)
 
@@ -26,7 +25,6 @@ x_train = x_train.reshape(50000, 64, 48)
 x_test = x_test.reshape(10000, 64, 48)
 
 #2. 모델구성
-
 model=Sequential()
 model.add(LSTM(64, input_shape=(64, 48)))
 model.add(Dense(32, activation='relu'))
@@ -37,7 +35,6 @@ model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accur
 from tensorflow.keras.callbacks import EarlyStopping
 es = EarlyStopping(monitor='val_loss', patience=10, mode='min', restore_best_weights=True)
 model.fit(x_train, y_train, epochs=1000, batch_size=300, validation_split=0.3, callbacks=[es])
-
 
 #4. 예측
 loss = model.evaluate(x_test, y_test)
