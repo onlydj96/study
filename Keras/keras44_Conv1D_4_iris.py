@@ -32,7 +32,7 @@ model.add(Flatten())
 model.add(Dense(50))
 model.add(Dense(10))
 model.add(Dense(5))
-model.add(Dense(3, activation='softmax'))  
+model.add(Dense(3, activation='softmax'))
 
 #3. 컴파일, 훈련
 model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy']) 
