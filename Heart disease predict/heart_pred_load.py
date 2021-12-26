@@ -5,7 +5,7 @@ from tensorflow.keras.layers import Dense, Dropout
 from tensorflow.keras.callbacks import EarlyStopping
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import f1_score
-from sklearn.preprocessing import MinMaxScaler, RobustScaler, StandardScaler
+from sklearn.preprocessing import MinMaxScaler, RobustScaler, StandardScaler, MaxAbsScaler
 
 #1. 데이터 전처리
 path = "../_data/dacon/heart_disease_pred/"
@@ -22,13 +22,13 @@ y = y.drop(index=131)
 
 x_train, x_test, y_train, y_test = train_test_split(x, y, train_size=0.8, random_state=1)
 
-scaler = MinMaxScaler()
+scaler = MaxAbsScaler()
 x_train = scaler.fit_transform(x_train)
 x_test = scaler.fit_transform(x_test)
 test_file = scaler.fit_transform(test_file)
 
 #2. 모델구성
-model = load_model("./_save/dacon_heart_disease_1.0.h5")
+model = load_model("./_save/dacon_heart_disease_MinMax0.9565.h5")
 # 4. 예측
 loss = model.evaluate(x_test, y_test)
 print("loss : ", loss)

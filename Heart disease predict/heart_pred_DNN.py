@@ -13,17 +13,17 @@ datasets = pd.read_csv(path + "train.csv")
 test_file = pd.read_csv(path + "test.csv")
 submit = pd.read_csv(path + "sample_submission.csv")
 
-x = datasets.drop(columns=['id', 'target', 'trestbps', 'restecg', 'chol', 'fbs'], axis=1)  # ('restecg', 'chol', 'fbs')
+x = datasets.drop(columns=['id', 'target', 'trestbps', 'restecg', 'chol', 'fbs'], axis=1)
 y = datasets['target'] 
-test_file = test_file.drop(columns=['id', 'trestbps', 'restecg', 'chol', 'fbs'], axis=1)   # 'age', 'sex'
+test_file = test_file.drop(columns=['id', 'trestbps', 'restecg', 'chol', 'fbs'], axis=1)   
 
 # 결측치가 나온 행(index) 처리
 x = x.drop(index=131)
 y = y.drop(index=131)
 
-x_train, x_test, y_train, y_test = train_test_split(x, y, train_size=0.8, random_state=1)
+x_train, x_test, y_train, y_test = train_test_split(x, y, train_size=0.75, random_state=1)
 
-scaler = MinMaxScaler()
+scaler = MinMaxScaler()   #MinMaxScaler, RobustScaler, StandardScaler, MaxAbsScaler
 x_train = scaler.fit_transform(x_train)
 x_test = scaler.fit_transform(x_test)
 test_file = scaler.fit_transform(test_file)
@@ -40,7 +40,7 @@ model.add(Dense(1, activation='sigmoid'))
 #3. 컴파일
 model.compile(loss='binary_crossentropy', optimizer='adam')
 es = EarlyStopping(monitor='val_loss', mode='min', patience=10, verbose=1, restore_best_weights=True)
-hist = model.fit(x_train, y_train, epochs=1000, validation_split=0.2, batch_size=16, callbacks=[es])
+hist = model.fit(x_train, y_train, epochs=1000, validation_split=0.25, batch_size=16, callbacks=[es])
 
 # 4. 예측
 loss = model.evaluate(x_test, y_test)

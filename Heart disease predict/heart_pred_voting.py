@@ -46,8 +46,6 @@ vo_clf.fit(x_train, y_train)
 # #4. 예측, 평가
 y_pred = vo_clf.predict(x_test)
 
-print("voting 분류기 정확도 {0:.4f}".format(f1_score(y_test, y_pred)))
-
 f1 = f1_score(y_test, y_pred)
 print('f1 score :', f1)
 

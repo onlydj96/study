@@ -30,13 +30,10 @@ from sklearn.ensemble import RandomForestClassifier
 # 앙상블 - Voting 
 rf = RandomForestClassifier(n_estimators=80, max_depth=10, random_state=66)
 
-
-
-# #3. 컴파일
+#3. 컴파일
 rf.fit(x_train, y_train)
 
-
-# #4. 예측, 평가
+#4. 예측, 평가
 y_pred = rf.predict(x_test)
 
 f1 = f1_score(y_test, y_pred)
