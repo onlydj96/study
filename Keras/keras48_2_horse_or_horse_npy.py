@@ -30,11 +30,11 @@ model.add(Dense(64, activation='relu'))
 model.add(Dropout(0.2))
 model.add(Dense(16, activation='relu'))
 model.add(Dropout(0.2))
-model.add(Dense(1, activation='sigmoid'))
+model.add(Dense(2, activation='softmax'))
 
 #3. 컴파일, 훈련
 from tensorflow.keras.callbacks import EarlyStopping
-model.compile(loss='binary_crossentropy',optimizer='adam', metrics=['acc'])
+model.compile(loss='categorical_crossentropy',optimizer='adam', metrics=['acc'])
 es = EarlyStopping(monitor='val_loss', patience=10, mode='min', restore_best_weights=True)
 hist = model.fit(x_train, y_train, epochs=1000, batch_size=200, validation_split=0.2, callbacks=[es]) 
 

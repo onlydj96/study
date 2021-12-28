@@ -55,9 +55,15 @@ model.compile(loss='binary_crossentropy',optimizer='adam', metrics=['acc'])
 es = EarlyStopping(monitor='val_loss', patience=20, mode='min', restore_best_weights=True)
 hist = model.fit_generator(xy_train, epochs=100, steps_per_epoch=32, validation_data=xy_train, validation_steps=4) 
 
+# 전체 이미지 개수 나누기 배치사이즈가 크기가 된다
+# ex) 배치사이즈 5 = (5, 150, 150, 3) * 0 ~ 31
+# ex) 배치사이즈 10 = (10, 150, 150, 3) * 0 ~ 15
+# ex) 배치사이즈 160 = (160, 150, 150, 3) * 0
+
 '''
 fit_generator : 분리되지 않은 xy_train을 바로 지정 가능
-steps_per_epochs= : 전체데이터/batch를 의미한다.
+steps_per_epochs= : 전체데이터/batch를 의미한다. 전체 데이터를 배치사이즈로 나눈값을 넣어 줘야한다 160개의 데이터를 5로 나눴으니까 32 
+# 31개면 데이터 1를 버린거 33개면 안돌아간다
 validation_ : 조사해보자...
 '''
 

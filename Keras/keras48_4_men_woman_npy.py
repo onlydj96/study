@@ -3,6 +3,8 @@
 
 import numpy as np
 from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import MinMaxScaler, StandardScaler
+from tensorflow.keras.utils import to_categorical
 
 # np.save("./_save_npy/keras48_4_datasets_x.npy", arr = datasets[0][0])
 # np.save("./_save_npy/keras48_4_datasets_y.npy", arr = datasets[0][1])
@@ -12,6 +14,23 @@ x = np.load("./_save_npy/keras48_4_datasets_x.npy")
 y = np.load("./_save_npy/keras48_4_datasets_y.npy")
 
 x_train, x_test, y_train, y_test = train_test_split(x, y, train_size=0.8, random_state=66)
+
+
+# 스케일러 적용
+x_train = x_train.reshape(2647, -1)
+x_test = x_test.reshape(662, -1)
+
+scaler = MinMaxScaler()
+x_train = scaler.fit_transform(x_train)
+x_test = scaler.transform(x_test)
+
+x_train = x_train.reshape(2647, 150, 150, 3)
+x_test = x_test.reshape(662, 150, 150, 3)
+
+
+# 원핫인코딩
+y_train = to_categorical(y_train)
+y_test = to_categorical(y_test)
 
 #2. 모델
 from tensorflow.keras.models import Sequential
@@ -30,28 +49,32 @@ model.add(Dense(64, activation='relu'))
 model.add(Dropout(0.2))
 model.add(Dense(16, activation='relu'))
 model.add(Dropout(0.2))
-model.add(Dense(1, activation='sigmoid'))
+model.add(Dense(2, activation='softmax'))
 
 #3. 컴파일, 훈련
 from tensorflow.keras.callbacks import EarlyStopping
-model.compile(loss='binary_crossentropy',optimizer='adam', metrics=['acc'])
+model.compile(loss='categorical_crossentropy',optimizer='adam', metrics=['acc'])
 es = EarlyStopping(monitor='val_loss', patience=10, mode='min', restore_best_weights=True)
-hist = model.fit(x_train, y_train, epochs=1000, batch_size=200, validation_split=0.2, callbacks=[es]) 
+hist = model.fit(x_train, y_train, epochs=1000, batch_size=32, validation_split=0.2, callbacks=[es]) 
 
 #4. 예측
 loss = model.evaluate(x_test, y_test)
 print("loss : ", loss[-1])
-results = model.predict(x_test)
-print("results : ", results[-1])
+
+results = model.predict(x_test)  
+# print("results : ", results)
+
+
+# 그래프 시각화
 
 acc = hist.history['acc']
 val_acc = hist.history['val_acc']
 loss = hist.history['loss']
 val_loss = hist.history['val_loss']
 
-
-# 그래프 시각화
 import matplotlib.pyplot as plt
+# plt.imshow(x_train[0])
+# plt.show()
 
 print('loss : ', loss[-1])
 print('val_loss : ', val_loss[-1])
