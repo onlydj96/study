@@ -21,39 +21,40 @@ test_datagen = ImageDataGenerator(rescale=1./255)
 
 xy_train = train_datagen.flow_from_directory(
     '../_data/Image/cat_dog/training_set',
-    target_size = (150, 150),
-    batch_size = 4000,
+    target_size = (100, 100),
+    batch_size = 8005,
     class_mode = 'binary',
     shuffle = True)
 
 xy_test = test_datagen.flow_from_directory(
     '../_data/Image/cat_dog/test_set',
-    target_size= (150, 150),
-    batch_size = 300,
+    target_size= (100, 100),
+    batch_size = 2023,
     class_mode = 'binary')
 
-
 # 증폭 데이터 생성
-augment_size = 5000
-randidx = np.random.randint(160, size = augment_size)
+augment_size = 1995
+randidx = np.random.randint(8005, size = augment_size)
 
 x_augmented = xy_train[0][0][randidx].copy()  #copy() 메모리 생성
 y_augmented = xy_train[0][1][randidx].copy()  
 
-x_train = xy_train[0][0].reshape(xy_train[0][0].shape[0],150,150,3)
-x_test = xy_test[0][0].reshape(xy_test[0][0].shape[0],150,150,3)
+x_train = xy_train[0][0].reshape(xy_train[0][0].shape[0],100,100,3)
+x_test = xy_test[0][0].reshape(xy_test[0][0].shape[0],100,100,3)
 
 
 # 증폭한 데이터에 ImageDataGenerator를 사용
 augmented_data = train_datagen.flow(x_augmented, y_augmented, batch_size=augment_size, shuffle=False) 
 temp_storage = train_datagen.flow(x_augmented, y_augmented, batch_size=30, shuffle=True, save_to_dir="../_temp") 
 
-x = np.concatenate((x_train, augmented_data[0][0]))  # (500, 150, 150, 3)
+x = np.concatenate((x_train, augmented_data[0][0]))  # (10000, 150, 150, 3)
 y = np.concatenate((xy_train[0][1], augmented_data[0][1]))  # (500,)
+
+print(x.shape)
 
 #2. 모델
 model = Sequential()
-model.add(Conv2D(32, (2, 2), input_shape=(150, 150, 3)))
+model.add(Conv2D(32, (2, 2), input_shape=(100, 100, 3)))
 model.add(MaxPool2D())
 model.add(Conv2D(32, (2,2), activation='relu'))
 model.add(MaxPool2D())
@@ -71,7 +72,7 @@ model.add(Dense(10, activation='softmax'))
 model.compile(loss='sparse_categorical_crossentropy', optimizer='adam', metrics=['acc'])  
 
 start = time.time()
-model.fit(x, y, epochs=100, steps_per_epoch=100) # (100000/32)
+model.fit(x, y, epochs=100, validation_split=0.3, steps_per_epoch=100) # (100000/32)
 end = time.time() - start
 print("걸린 시간 : ", round(end, 2))
 
