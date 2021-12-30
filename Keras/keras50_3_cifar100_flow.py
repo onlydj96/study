@@ -3,6 +3,7 @@ import numpy as np
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Conv2D, Dense, Flatten, MaxPool2D, Dropout
+from sklearn.preprocessing import MinMaxScaler, StandardScaler
 import time
 import warnings
 warnings.filterwarnings('ignore')
@@ -31,6 +32,11 @@ x_augmented = x_train[randidx].copy()  #copy() 메모리 생성
 y_augmented = y_train[randidx].copy()  
 
 x_augmented = x_augmented.reshape(x_augmented.shape[0], x_augmented.shape[1], x_augmented.shape[2], 3)
+
+# 스케일러 적용
+scaler = MinMaxScaler()
+x_train = scaler.fit_transform(x_train)
+x_test = scaler.transform(x_test)
 x_train = x_train.reshape(x_train.shape[0],32,32,3)
 x_test = x_test.reshape(x_test.shape[0],32,32,3)
 

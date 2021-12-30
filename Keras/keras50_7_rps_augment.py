@@ -56,7 +56,7 @@ x_test = xy_test[0][0].reshape(xy_test[0][0].shape[0],50,50,3)
 augmented_data = train_datagen.flow(x_augmented, y_augmented, batch_size=augment_size, shuffle=False, save_to_dir="../_temp") 
 
 x = np.concatenate((x_train, augmented_data[0][0]))  # (3000, 50, 50, 3)
-y = np.concatenate((xy_train[0][1], augmented_data[0][1]))  # (3000,)
+y = np.concatenate((xy_train[0][1], augmented_data[0][1]))  # (3000, 3)
 
 print(x.shape, y.shape)
 
@@ -76,14 +76,14 @@ model.add(Dense(16, activation='relu'))
 model.add(Dropout(0.2))
 model.add(Dense(3, activation='softmax'))
 
-# # #3. 컴파일, 훈련
-# model.compile(loss='sparse_categorical_crossentropy', optimizer='adam', metrics=['acc'])  
+# #3. 컴파일, 훈련
+model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['acc'])  
 
-# start = time.time()
-# model.fit(x, y, epochs=100, validation_split=0.2, steps_per_epoch=100) 
-# end = time.time() - start
-# print("걸린 시간 : ", round(end, 2))
+start = time.time()
+model.fit(x, y, epochs=100, validation_split=0.2, steps_per_epoch=100) 
+end = time.time() - start
+print("걸린 시간 : ", round(end, 2))
 
-# #4. 예측 
-# loss = model.evaluate(xy_test)
-# print("loss : ", loss)
+#4. 예측 
+loss = model.evaluate(xy_test)
+print("loss : ", loss)

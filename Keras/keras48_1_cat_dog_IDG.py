@@ -16,9 +16,9 @@ train_datagen = ImageDataGenerator(
                 vertical_flip=True, 
                 width_shift_range=0.1,
                 height_shift_range=0.1,
-                rotation_range=5,
-                zoom_range=1.2,
-                shear_range=0.7,
+                # rotation_range=5,
+                zoom_range=0.3,
+                # shear_range=0.7,
                 fill_mode='nearest')
 
 
@@ -26,16 +26,21 @@ test_datagen = ImageDataGenerator(rescale=1./255)
 
 xy_train = train_datagen.flow_from_directory(
     'D:/_data/Image/cat_dog/training_set',
-    target_size = (150, 150),
-    batch_size = 50,
+    target_size = (50, 50),
+    batch_size = 32,
     class_mode = 'categorical',
     shuffle = True)
 
 xy_test = test_datagen.flow_from_directory(
     'D:/_data/Image/cat_dog/test_set',
-    target_size= (150, 150),
-    batch_size = 50,
+    target_size= (50, 50),
+    batch_size = 32,
     class_mode = 'categorical')
+
+'''
+flow_from_directory 메소드를 사용하면 폴더구조를 그대로 가져와서 ImageDataGenerator 객체의 실제 데이터를 채워준다. 
+이 데이터를 불러올 때 앞서 정의한 파라미터로 전처리를 한다.
+'''
 
 print(type(xy_train)) # <class 'tensorflow.python.keras.preprocessing.image.DirectoryIterator'>
 print(xy_train[0][0].shape)
@@ -44,7 +49,7 @@ print(xy_train[0][0].shape)
 #2. 모델
 model = Sequential()
 
-model.add(Conv2D(32, (2,2), input_shape=(150, 150, 3)))
+model.add(Conv2D(32, (2,2), input_shape=(50, 50, 3)))
 model.add(MaxPool2D())
 model.add(Conv2D(32, (2,2), activation='relu'))
 model.add(MaxPool2D())
@@ -61,50 +66,33 @@ model.add(Dense(2, activation='softmax'))
 #3. 컴파일 
 model.compile(loss = "categorical_crossentropy", optimizer='adam', metrics=['acc'])
 es = EarlyStopping(monitor='val_loss', patience=10, mode='min', restore_best_weights=True)
-hist = model.fit_generator(xy_train, epochs=100, steps_per_epoch=100, validation_data=xy_train, validation_steps=40, callbacks=[es]) 
+hist = model.fit(xy_train, epochs=100, steps_per_epoch=20, validation_data=xy_train, validation_steps=40, callbacks=[es]) 
 
 #4. 예측
-pic_path = '../_data/Image/test_file/dog.jpg'
-img = image.load_img(pic_path, target_size=(150,150))
-  
-plt.imshow(img, 'gray')
-plt.show()
+sample_directory = '../_data/image/testfile/'
+sample_image = sample_directory + "dog.jpg"
 
-img = image.load_img(pic_path, target_size=(150,150))
-img = img_to_array(img)
-img = img.reshape((1,) + img.shape)
-print(img.shape)
+print("-- Evaluate --")
+scores = model.evaluate_generator(xy_test, steps=5)
+print("%s: %.2f%%" %(model.metrics_names[1], scores[1]*100))
 
-loss = model.evaluate_generator(xy_test)
-print("loss : ", loss[-1])
-results = model.predict(img)
-print("results : ", results)
+print("-- Predict --")
+image_ = image.load_img(str(sample_image), target_size=(50, 50))
+x = image.img_to_array(image_)
+x = np.expand_dims(x, axis=0)
+x /=255.
+images = np.vstack([x])
+classes = model.predict(images, batch_size=40)
 
-
-'''
-loss :  [0.5667693614959717, 0.7172515988349915]
-'''
-
-# 그래프 시각화
-import matplotlib.pyplot as plt
-
-acc = hist.history['acc']
-val_acc = hist.history['val_acc']
-loss = hist.history['loss']
-val_loss = hist.history['val_loss']
-
-print('loss : ', loss[-1])
-print('val_loss : ', val_loss[-1])
-print('acc : ', acc[-1])
-print('val_acc : ', val_acc[-1])
-
-epochs = range(1, len(loss)+1)
-
-plt.plot(epochs, loss, 'r--', label="loss")
-plt.plot(epochs, val_loss, 'r:', label="val_loss")
-plt.plot(epochs, acc, 'b--', label="acc")
-plt.plot(epochs, val_acc, 'b:', label="val_acc")
-
-plt.grid()
-plt.legend()
-plt.show()
+print(classes)
+xy_test.reset()
+print(xy_test.class_indices)
+# {'cats': 0, 'dogs': 1}
+if(classes[0][0]<=0.5):
+    cat = 100 - classes[0][0]*100
+    print(f"당신은 {round(cat,2)} % 확률로 고양이 입니다")
+elif(classes[0][0]>=0.5):
+    dog = classes[0][0]*100
+    print(f"당신은 {round(dog,2)} % 확률로 개 입니다")
+else:
+    print("ERROR")
