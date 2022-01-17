@@ -13,7 +13,7 @@ y = datasets.target
 from sklearn.model_selection import train_test_split
 x_train, x_test, y_train, y_test = train_test_split(x, y, train_size=0.8, random_state=66)
 
-model = KNeighborsRegressor()
+model = LinearRegression()
 
 #3. 훈련
 model.fit(x_train, y_train)
@@ -23,10 +23,12 @@ model.fit(x_train, y_train)
 
 result = model.score(x_test, y_test)
 
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import r2_score
 y_pred = model.predict(x_test)
-# acc = accuracy_score(y_test, y_pred)
+acc = r2_score(y_test, y_pred)
 
-# print('acc : ', acc) 
+print('acc : ', acc) 
 
-print(result)
+'''
+acc :  0.8111288663608656
+'''
