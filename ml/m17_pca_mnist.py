@@ -24,10 +24,10 @@ cumsum = np.cumsum(pca_EVR)
 # print(cumsum[0])
 
 
-
 '''
 cumsum : 누적합, 차례대로 더해준다.
 '''
+
 print(np.argmax(cumsum >= 0.95)+1)  # 154, 0.95가 되는 시작부분 
 print(np.argmax(cumsum >= 0.99)+1)  # 331, 0.99가 되는 시작부분
 print(np.argmax(cumsum >= 0.999)+1)  # 486, 0.999가 되는 시작부분

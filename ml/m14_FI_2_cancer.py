@@ -18,10 +18,7 @@ datasets = load_breast_cancer()
 x = datasets.data
 y = datasets.target
 
-x = np.delete(x, 0, axis=1)
-x = np.delete(x, 24, axis=1)
-x = np.delete(x, 25, axis=1)
-# x = np.delete(x, 29, axis=1)
+x = np.delete(x, (0, 24, 25, 29), axis=1)
 
 from sklearn.model_selection import train_test_split
 x_train, x_test, y_train, y_test = train_test_split(x, y, train_size=0.8, random_state=66)
@@ -56,18 +53,18 @@ print("GradientBoosting : ", model4.score(x_test, y_test))
 '''
 결과 비교
 1. DecisionTree 
-acc : 0.9298245614035088
-컬럼 삭제 후 acc : 0.9
+acc : 0.9035087719298246
+컬럼 삭제 후 acc : 0.9210526315789473
 
 2. RandomForest
 acc : 0.9649122807017544
-컬럼 삭제 후 acc : 0.9
+컬럼 삭제 후 acc : 0.9736842105263158
 
 3. XGBoost
 acc : 0.9736842105263158
-컬럼 삭제 후 acc : 0.9
+컬럼 삭제 후 acc : 0.9736842105263158
 
 4. GradientBoosting 
-acc : 0.9473684210526315
-컬럼 삭제 후 acc : 0.9
+acc : 0.956140350877193
+컬럼 삭제 후 acc : 0.956140350877193
 '''

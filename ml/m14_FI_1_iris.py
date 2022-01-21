@@ -18,8 +18,7 @@ datasets = load_iris()
 x = datasets.data
 y = datasets.target
 
-# x = np.delete(x, 0, axis=1)
-# x = np.delete(x, 1, axis=1)
+x = np.delete(x, (0,1), axis=1)
 
 from sklearn.model_selection import train_test_split
 x_train, x_test, y_train, y_test = train_test_split(x, y, train_size=0.8, random_state=66)
@@ -55,17 +54,17 @@ print("GradientBoosting : ", model4.score(x_test, y_test))
 결과 비교
 1. DecisionTree 
 acc : 0.9666666666666667
-컬럼 삭제 후 acc : 0.9
+컬럼 삭제 후 acc : Decision Tree :  0.9333333333333333
 
 2. RandomForest
 acc : 0.9333333333333333
-컬럼 삭제 후 acc : 0.9
+컬럼 삭제 후 acc : RandomForest :  0.9666666666666667
 
 3. XGBoost
 acc : 0.9
-컬럼 삭제 후 acc : 0.9
+컬럼 삭제 후 acc : XGBoost :  0.9666666666666667
 
 4. GradientBoosting 
 acc : 0.9666666666666667
-컬럼 삭제 후 acc : 0.9
+컬럼 삭제 후 acc : GradientBoosting :  0.9666666666666667
 '''

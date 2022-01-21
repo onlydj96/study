@@ -13,14 +13,11 @@ from keras.layers import Dense, Dropout
 
 # print(x_train.shape, x_test.shape)  # (60000, 28, 28) (10000, 28, 28)
 
-x = np.append(x_train, x_test, axis=0)  # x_train, x_test를 행으로 합친다는 뜻
-
 scaler = StandardScaler()
 x_train = x_train.reshape(60000, -1)  # (60000, 784)
 x_test = x_test.reshape(10000, -1)  # (10000, 784)
 
-scaler.fit(x_train)
-x_train = scaler.transform(x_train)
+x_train = scaler.fit_transform(x_train)
 x_test = scaler.transform(x_test)
 
 y_train = to_categorical(y_train)
@@ -29,11 +26,9 @@ y_test = to_categorical(y_test)
 
 # pca를 통해 0.95 이상인 n_components가 몇개?
 
-pca = PCA(n_components=154)  # 칼럼이 28*28개의 벡터로 압축이됨
+pca = PCA(n_components=486)  # 칼럼이 28*28개의 벡터로 압축이됨
 x_train = pca.fit_transform(x_train)
 x_test = pca.transform(x_test)
-
-print(x.shape)
 
 # pca_EVR = pca.explained_variance_ratio_
 # print(pca_EVR)   
@@ -45,7 +40,7 @@ print(x.shape)
 # 2. 모델구성
 
 model=Sequential()
-model.add(Dense(64, input_shape=(154,)))
+model.add(Dense(64, input_shape=(486,)))
 model.add(Dropout(0.2))
 model.add(Dense(32, activation='relu'))
 model.add(Dropout(0.2))
@@ -67,7 +62,7 @@ loss = model.evaluate(x_test, y_test)
 print("loss, accuracy : ", loss)
 
 acc = str(round(loss[1], 4))
-model.save("./_save/dnn_mnist_{}.h5".format(acc))
+model.save("../_save/dnn_mnist_{}.h5".format(acc))
 
 
 '''
@@ -75,10 +70,16 @@ model.save("./_save/dnn_mnist_{}.h5".format(acc))
 loss, accuracy :  [0.16708636283874512, 0.9592999815940857]
 
 2. 0.95
+걸린 시간 :  584.06
+loss, accuracy :  [0.17635329067707062, 0.9578999876976013]
 
 3. 0.99
+걸린 시간 :  624.63
+loss, accuracy :  [0.1727934181690216, 0.9595000147819519]
 
 4. 0.999
+걸린 시간 :  411.45
+loss, accuracy :  [0.18372932076454163, 0.9531999826431274]
 
 5. 1.0
 loss, accuracy :  [0.21637573838233948, 0.9509999752044678]

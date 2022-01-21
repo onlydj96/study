@@ -1,3 +1,6 @@
+
+# 상관계수(correlation coefficient)
+
 from sklearn.datasets import load_iris
 import pandas as pd
 import numpy as np

@@ -18,6 +18,7 @@ datasets = fetch_covtype()
 x = datasets.data
 y = datasets.target
 
+x = np.delete(x, (1, 2, 3, 4, 5, 26, 27, 28, 29, 30), axis=1)
 
 from sklearn.model_selection import train_test_split
 x_train, x_test, y_train, y_test = train_test_split(x, y, train_size=0.8, random_state=66)
@@ -42,3 +43,30 @@ print(model1.feature_importances_)
 print(model2.feature_importances_)
 print(model3.feature_importances_)
 print(model4.feature_importances_)
+
+# 5. 스코어
+print(model1.score(x_test, y_test))
+print(model2.score(x_test, y_test))
+print(model3.score(x_test, y_test))
+print(model4.score(x_test, y_test))
+
+
+
+'''
+결과 비교
+1. DecisionTree 
+acc : 0.9397778026384861
+컬럼 삭제 후 acc : 0.875424902971524
+
+2. RandomForest
+acc : 0.9556637952548557
+컬럼 삭제 후 acc : 0.8968873437002487
+
+3. XGBoost
+acc : 0.869392356479609
+컬럼 삭제 후 acc : 0.8074318218978856
+
+4. GradientBoosting 
+acc : 0.773499823584589
+컬럼 삭제 후 acc : 0.7489221448671721
+'''
