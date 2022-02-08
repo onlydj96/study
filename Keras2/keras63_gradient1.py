@@ -1,0 +1,23 @@
+
+# lambda 함수 사용해서 시각화
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+f = lambda x: x**2 - 4*x + 6
+
+
+x = np.linspace(-1, 6, 100)
+
+print(x, len(x))
+
+y = f(x)
+
+
+########### 시각화 ##############
+plt.plot(x, y, 'k-')
+plt.plot(2, 2, 'sk')
+plt.grid()
+plt.xlabel('x')
+plt.ylabel('y')
+plt.show()
