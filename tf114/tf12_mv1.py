@@ -38,7 +38,7 @@ train = optimizer.minimize(loss)
 sess = tf.compat.v1.Session()
 sess.run(tf.compat.v1.global_variables_initializer())
 
-for epochs in range(10001):
+for epochs in range(1001):
     _, loss_val, w_val1, w_val2, w_val3 = sess.run([train, loss, w1, w2, w3], feed_dict={x1:x1_data, x2:x2_data, x3:x3_data, y:y_data})
     print(epochs, '\t', loss_val, '\t', w_val1, '\t', w_val2, '\t', w_val3)
     
