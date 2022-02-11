@@ -25,8 +25,8 @@ x_train, x_test, y_train, y_test = train_test_split (x_data, y_data, train_size 
 x = tf.compat.v1.placeholder('float',shape=[None,4])
 y = tf.compat.v1.placeholder('float',shape=[None,3])
 
-w = tf.compat.v1.Variable(tf.random_normal([4,3],name = 'weight'))
-b = tf.compat.v1.Variable(tf.random_normal([1,3]), name = 'bias')
+w = tf.compat.v1.Variable(tf.random.normal([4,3],name = 'weight'))
+b = tf.compat.v1.Variable(tf.random.normal([1,3]), name = 'bias')
 
 hypothesis = tf.nn.softmax(tf.matmul(x, w) + b)
 
