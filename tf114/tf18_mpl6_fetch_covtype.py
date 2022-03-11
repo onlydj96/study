@@ -47,9 +47,9 @@ hidden_layer4 = tf.nn.relu(tf.matmul(hidden_layer3, w3) + b3)
 w4 = tf.compat.v1.Variable(tf.random.normal([4, 7], name='weight3'))
 b4 = tf.compat.v1.Variable(tf.random.normal([7], name='bias3'))
 
-output = tf.matmul(hidden_layer4, w4) + b4
+output = tf.nn.softmax(tf.matmul(hidden_layer4, w4) + b4)
 
-loss = -tf.reduce_mean(y*tf.math.log(output) + (1-y)*tf.math.log(1-output))  # binary_crossentropy
+loss = tf.reduce_mean(-tf.reduce_sum(y * tf.math.log(output), axis=1)) # categorical_crossentropy
 optimizer = tf.compat.v1.train.GradientDescentOptimizer(learning_rate=0.001)
 train = optimizer.minimize(loss)
 
